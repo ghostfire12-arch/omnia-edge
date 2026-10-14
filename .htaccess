@@ -1,0 +1,44 @@
+# =====================================================================
+# OMNIA EDGE — Apache hardening (works on WAMP and cPanel, Apache 2.4)
+# =====================================================================
+
+Options -Indexes -MultiViews
+ServerSignature Off
+DirectoryIndex index.php
+
+# Never serve source, data, docs or hidden files directly.
+<FilesMatch "(?i)(\.(sql|md|log|ini|env|bak|old|orig|swp|dist|lock|json|yml|yaml|sh|zip|tar|gz)|~)$">
+    Require all denied
+</FilesMatch>
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Block private folders even if their own .htaccess is removed.
+    RewriteRule ^(includes|database|\.kilo|\.git|vendor|node_modules)(/|$) - [F,L,NC]
+    RewriteRule ^admin/includes(/|$) - [F,L,NC]
+    # Block PHP execution anywhere under uploads/.
+    RewriteRule (^|/)uploads/.*\.(php\d?|phtml|phar|pht|cgi|pl|py|sh)$ - [F,L,NC]
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header always unset X-Powered-By
+    Header always set X-Content-Type-Options "nosniff"
+    # Long cache for static assets (filenames are version-stamped with ?v=)
+    <FilesMatch "\.(css|js|svg|png|jpe?g|webp|woff2?)$">
+        Header set Cache-Control "public, max-age=2592000"
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/json
+</IfModule>
+
+# Uncomment on the live server once SSL is active to force HTTPS:
+# <IfModule mod_rewrite.c>
+#     RewriteCond %{HTTPS} !=on
+#     RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+#     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>

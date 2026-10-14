@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Omnia Edge logo">
+  <defs>
+    <linearGradient id="oeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2f6fed"/>
+      <stop offset="100%" stop-color="#0a2463"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="48" fill="url(#oeGrad)"/>
+  <path d="M50 4 A46 46 0 0 1 88 70" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
+  <path d="M74 22 L88 22 L88 8" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(24,34)" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 0 H7 L12 28 H40 L46 8 H14"/>
+    <circle cx="18" cy="40" r="4.5" fill="#ffffff" stroke="none"/>
+    <circle cx="36" cy="40" r="4.5" fill="#ffffff" stroke="none"/>
+  </g>
+</svg>
